@@ -37,6 +37,7 @@ function soundwall(o, mount) {
   .soundwall-text{
     font-size:2em;
     width:500px;
+    color:black;
   }
   </style>
   <div class="soundwall-container" id="${openId}">
