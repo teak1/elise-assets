@@ -1,3 +1,4 @@
+//version 0.0.2
 function soundwall(o, mount) {
   function html(str) {
     return new DOMParser().parseFromString(str, "text/html").body.children[0];
@@ -46,6 +47,7 @@ function soundwall(o, mount) {
         opacity:0;
         pointer-events:none;
         transition-propery:opacity;
+        z-index:100;
       }
       .soundwall-display-wrapper.open{
         transition:0.5s;
@@ -59,6 +61,7 @@ function soundwall(o, mount) {
         top:20px;
         left:20px;
         border-radius:1em;
+        background-color:white;
       }
       .soundwall-overlay-container {
         position: relative;
