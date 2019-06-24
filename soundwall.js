@@ -143,6 +143,7 @@ function soundwall(o, mount) {
     const ctx = canvas.getContext("2d");
     ctx.drawImage(maskImg, 0, 0);
     wrapper.addEventListener("click", (evt) => {
+      console.log(evt.offsetX, evt.offsetY);
       let pixel = format(ctx.getImageData(evt.offsetX, evt.offsetY, 1, 1).data);
       if (lookup[pixel]) lookup[pixel].play();
     })
