@@ -147,9 +147,7 @@ function soundwall(o, mount) {
     loaded++;
     if (loaded == 2) execute();
   }
-  function activate(event) {
-
-    event.preventDefault();
+  function activate() {
     maskImg.addEventListener("load", loadHandler);
     maskImg.src = images.mask;
   }
