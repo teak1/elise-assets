@@ -144,6 +144,8 @@ function soundwall(o, mount) {
     ctx.drawImage(maskImg, 0, 0);
     wrapper.addEventListener("click", (evt) => {
       console.log(evt.offsetX, evt.offsetY);
+      let x = Math.floor(evt.offsetX / img.width * maskImg.width);
+      let y = Math.floor(evt.offsetY / img.height * maskImg.height);
       let pixel = format(ctx.getImageData(evt.offsetX, evt.offsetY, 1, 1).data);
       if (lookup[pixel]) lookup[pixel].play();
     })
