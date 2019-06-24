@@ -39,14 +39,16 @@ function soundwall(o, mount) {
   
   ${isMobile ? "<div class=\"soundwall-open-mob\"><b>Touch to open soundwall</b></div>" : ""}
   <img src="${images.display}" alt="Avatar" class="soundwall-image" width="300">
+  ${isMobile ? "" : `
   <div class="soundwall-middle">
     <a>
     <div class="soundwall-text">Click to open soundwall</div>
     </a>
   </div>
+  `}
   </div>
   </div>`));
-  const orientation = window.innerWidth > window.innerHeight ? "horazontal" : "vertical"
+
   const overlay = html(`
   <div class="soundwall-display-wrapper" hidden>
     <style>
@@ -100,7 +102,7 @@ function soundwall(o, mount) {
     <div class="soundwall-overlay-container">
     <div class="soundwall-overlay-middle">
     <div id="${wrapperId}">
-    <img class="${orientation ? "soundwall-overlay-image-horizontal" : "soundwall-overlay-image-vertical"}" id="${imgId}"/>
+    <img class="soundwall-overlay-image-horizontal" id="${imgId}"/>
     </div>
   </div>
   </div>
@@ -132,6 +134,7 @@ function soundwall(o, mount) {
       }
       activated = true;
       activate();
+      window.requestAnimationFrame(() => { updateImageSize() });
     }
   }
   document.getElementById(openId).addEventListener("click", handleOpen);
@@ -167,6 +170,38 @@ function soundwall(o, mount) {
       if (lookup[pixel]) lookup[pixel].play();
     })
   }
+  function updateImageSize() {
+    let orientation;
+    let boundingrect = img.getClientRects()[0];
+    if (!boundingrect) return;
+    let current = img.getAttribute("class");
+    // if (window.innerWidth < window.innerHeight) {
+    //   if (img.width > img.height) {
+    //     orientation = "horizontal"
+    //   } else {
+    //     orientation = "vertical"
+    //   }
+    // } else {
+    //   if (img.width > img.height && img.getClientRects()[0] && img.getClientRects()[0].height <= window.innerHeight - 100) {
+    //     orientation = "horizontal"
+    //   } else {
+    //     orientation = "vertical"
+    //   }
+    // }
+    if (current === "soundwall-overlay-image-horizontal") {
+      if (boundingrect.height > window.innerHeight - 100) {
+        orientation = "vertical";
+        img.setAttribute("class", "soundwall-overlay-image-" + orientation);
+      }
+    } else if (current === "soundwall-overlay-image-vertical") {
+      if (boundingrect.width > window.innerWidth - 100) {
+        orientation = "horizontal";
+        img.setAttribute("class", "soundwall-overlay-image-" + orientation);
+      }
+    }
+  }
+  img.addEventListener("load", updateImageSize);
+  window.addEventListener("resize", updateImageSize);
   img.addEventListener("load", loadHandler);
   img.src = images.display;
 }
