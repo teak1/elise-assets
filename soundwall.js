@@ -138,10 +138,10 @@ function soundwall(o, mount) {
   }
   function execute() {
     const canvas = document.createElement("canvas");
-    canvas.setAttribute("width", img.width);
-    canvas.setAttribute("height", img.height);
+    canvas.setAttribute("width", maskImg.width);
+    canvas.setAttribute("height", maskImg.height);
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(maskImg, 0, 0);
+    ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
     wrapper.addEventListener("click", (evt) => {
       console.log(evt.offsetX, evt.offsetY);
       let x = Math.floor(evt.offsetX / img.width * maskImg.width);
